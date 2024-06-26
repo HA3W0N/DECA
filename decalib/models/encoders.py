@@ -30,6 +30,12 @@ class ResnetEncoder(nn.Module):
             nn.ReLU(),
             nn.Linear(1024, outsize)
         )
+                    ########Including Transformer Encoder########
+            # torch.nn.TransformerEncoderLayer(d_model, nhead, dim_feedforward=2048, dropout=0.1, activation=<function relu>,
+            # layer_norm_eps=1e-05, batch_first=False, norm_first=False, bias=True, device=None, dtype=None)
+        # nn.TransformerEncoderLayer()
+        # nn.TransformerEncoderLayer()
+        # nn.TransformerEncoderLayer()
         self.last_op = last_op
 
     def forward(self, inputs):
