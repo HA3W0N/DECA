@@ -26,6 +26,7 @@ import cv2
 import pickle
 from .utils.renderer import SRenderY, set_rasterizer
 from .models.encoders import ResnetEncoder
+from .models.WithTFEncoders import ResnetWithTFEncoder
 from .models.FLAME import FLAME, FLAMETex
 from .models.decoders import Generator
 from .utils import util
@@ -75,8 +76,12 @@ class DECA(nn.Module):
         self.param_dict = {i:model_cfg.get('n_' + i) for i in model_cfg.param_list}
 
         # encoders
-        self.E_flame = ResnetEncoder(outsize=self.n_param).to(self.device) 
+        self.E_flame = ResnetWithTFEncoder(outsize=self.n_param).to(self.device)
+        print("Number of Flame Parameter : ", self.n_param)
+        # print("Flame Parameter : ", self.E_flame)
         self.E_detail = ResnetEncoder(outsize=self.n_detail).to(self.device)
+        print("Number of Detail parameter : ", self.n_detail)
+        # print("Detail Parameter : ", self.E_detail)
         # decoders
         self.flame = FLAME(model_cfg).to(self.device)
         if model_cfg.use_tex:

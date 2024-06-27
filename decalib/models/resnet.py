@@ -62,6 +62,7 @@ class ResNet(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
+        print("input x : ", x.shape)
         x = self.conv1(x)
         x = self.bn1(x)
         x = self.relu(x)
@@ -71,9 +72,11 @@ class ResNet(nn.Module):
         x = self.layer2(x)
         x = self.layer3(x)
         x1 = self.layer4(x)
-
+        print("x1 ,before Averagepool: ", x1.shape)
         x2 = self.avgpool(x1)
+        print("x2, Averagepool x1 : ", x2.shape)
         x2 = x2.view(x2.size(0), -1)
+        print("x2 : ", x2.shape)
         # x = self.fc(x)
         ## x2: [bz, 2048] for shape
         ## x1: [bz, 2048, 7, 7] for texture
